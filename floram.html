@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas 🌻 | Jardín de Luz</title>
+  <style>
+    /* ===== RESET Y ESTILOS BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --amarillo-principal: #FFD700;
+      --amarillo-suave: #FFF3B0;
+      --amarillo-oscuro: #E6B800;
+      --verde-hoja: #5A7D3A;
+      --verde-oscuro: #3B5226;
+      --crema: #FFFDF5;
+      --texto-oscuro: #2E2B1F;
+      --sombra: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--crema);
+      color: var(--texto-oscuro);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== PARTÍCULAS FLOTANTES (pétalos) ===== */
+    .petalos {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petalo {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: caer linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes caer {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg) translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    /* ===== HEADER / HERO ===== */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(160deg, #FFFDF5 0%, #FFF3B0 50%, #FFE066 100%);
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-contenido {
+      position: relative;
+      z-index: 2;
+      animation: aparecer 1.5s ease-out;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .girasol-grande {
+      font-size: clamp(5rem, 15vw, 10rem);
+      display: block;
+      margin-bottom: 1rem;
+      animation: girar 8s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(230, 184, 0, 0.4));
+    }
+
+    @keyframes girar {
+      0%, 100% { transform: rotate(-5deg) scale(1); }
+      50% { transform: rotate(5deg) scale(1.05); }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: var(--verde-oscuro);
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 0 rgba(255, 215, 0, 0.5);
+    }
+
+    .subtitulo {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--verde-hoja);
+      font-style: italic;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-explorar {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background-color: var(--amarillo-principal);
+      color: var(--verde-oscuro);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border: 2px solid var(--amarillo-oscuro);
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 15px rgba(230, 184, 0, 0.3);
+    }
+
+    .btn-explorar:hover {
+      background-color: var(--verde-oscuro);
+      color: var(--amarillo-principal);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(59, 82, 38, 0.3);
+    }
+
+    /* ===== SECCIÓN DE FLORES ===== */
+    .seccion-flores {
+      padding: 5rem 2rem;
+      background: var(--crema);
+      position: relative;
+      z-index: 2;
+    }
+
+    .titulo-seccion {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--verde-oscuro);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .titulo-seccion::after {
+      content: '✿';
+      display: block;
+      color: var(--amarillo-oscuro);
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .grid-flores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 3rem auto 0;
+    }
+
+    .tarjeta-flor {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 5px 20px var(--sombra);
+      border-bottom: 4px solid var(--amarillo-principal);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tarjeta-flor::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      background: linear-gradient(180deg, var(--amarillo-suave), transparent);
+      transition: height 0.4s ease;
+      z-index: 0;
+    }
+
+    .tarjeta-flor:hover::before {
+      height: 100%;
+    }
+
+    .tarjeta-flor:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(230, 184, 0, 0.25);
+    }
+
+    .tarjeta-flor > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .icono-flor {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .tarjeta-flor h3 {
+      color: var(--verde-oscuro);
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tarjeta-flor p {
+      color: #6b6b5a;
+      font-size: 0.95rem;
+    }
+
+    /* ===== SECCIÓN SIGNIFICADO ===== */
+    .seccion-significado {
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-hoja));
+      padding: 5rem 2rem;
+      color: var(--crema);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seccion-significado::before {
+      content: '🌻🌻🌻';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      font-size: 3rem;
+      opacity: 0.1;
+      letter-spacing: 2rem;
+      white-space: nowrap;
+      animation: mover 20s linear infinite;
+    }
+
+    @keyframes mover {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .seccion-significado h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--amarillo-principal);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .seccion-significado p {
+      max-width: 750px;
+      margin: 0 auto 1.2rem;
+      font-size: 1.1rem;
+      position: relative;
+      opacity: 0.95;
+    }
+
+    .frase-destacada {
+      font-size: clamp(1.2rem, 3vw, 1.6rem) !important;
+      font-style: italic;
+      color: var(--amarillo-suave) !important;
+      margin-top: 2rem !important;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    /* ===== SECCIÓN GALERÍA / CTA ===== */
+    .seccion-cta {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--amarillo-suave);
+    }
+
+    .seccion-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--verde-oscuro);
+      margin-bottom: 1rem;
+    }
+
+    .seccion-cta p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: var(--verde-hoja);
+      font-size: 1.1rem;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1rem 2.5rem;
+      background: var(--verde-oscuro);
+      color: var(--amarillo-principal);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 20px rgba(59, 82, 38, 0.3);
+    }
+
+    .btn-whatsapp:hover {
+      background: var(--amarillo-principal);
+      color: var(--verde-oscuro);
+      transform: scale(1.05);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--verde-oscuro);
+      color: var(--amarillo-suave);
+      text-align: center;
+      padding: 2.5rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    footer .flores-footer {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.5rem;
+    }
+
+    footer a {
+      color: var(--amarillo-principal);
+      text-decoration: none;
+    }
+
+    /* ===== SCROLL SUAVE ===== */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .grid-flores {
+        grid-template-columns: 1fr;
+      }
+      .btn-explorar, .btn-whatsapp {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Partículas de pétalos flotantes -->
+  <div class="petalos" id="petalos"></div>
+
+  <!-- ===== HERO ===== -->
+  <header>
+    <div class="hero-contenido">
+      <span class="girasol-grande">🌻</span>
+      <h1>Flores Amarillas</h1>
+      <p class="subtitulo">Un jardín de luz, alegría y esperanza. Descubre el lenguaje secreto de las flores doradas.</p>
+      <a href="#flores" class="btn-explorar">Explorar el jardín ✨</a>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN FLORES ===== -->
+  <section class="seccion-flores" id="flores">
+    <h2 class="titulo-seccion">Nuestras Flores Doradas</h2>
+    <div class="grid-flores">
+      <div class="tarjeta-flor">
+        <span class="icono-flor">🌻</span>
+        <h3>Girasol</h3>
+        <p>El símbolo de la felicidad y la lealtad. Siempre gira buscando la luz del sol.</p>
+      </div>
+      <div class="tarjeta-flor">
+        <span class="icono-flor">🌼</span>
+        <h3>Margarita Amarilla</h3>
+        <p>Representa la inocencia y la pureza. Un clásico que ilumina cualquier jardín.</p>
+      </div>
+      <div class="tarjeta-flor">
+        <span class="icono-flor">🌷</span>
+        <h3>Tulipán Dorado</h3>
+        <p>Simboliza la energía positiva y la prosperidad. Un tesoro de la primavera.</p>
+      </div>
+      <div class="tarjeta-flor">
+        <span class="icono-flor">🏵️</span>
+        <h3>Rosa Amarilla</h3>
+        <p>Amistad, alegría y nuevos comienzos. Un mensaje de cariño sin romanticismo.</p>
+      </div>
+      <div class="tarjeta-flor">
+        <span class="icono-flor">💛</span>
+        <h3>Caléndula</h3>
+        <p>Flor medicinal por excelencia. Atrae la buena energía y la sanación.</p>
+      </div>
+      <div class="tarjeta-flor">
+        <span class="icono-flor">✨</span>
+        <h3>Narciso Amarillo</h3>
+        <p>Anuncia la llegada de la primavera. Símbolo de renacimiento y esperanza.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECCIÓN SIGNIFICADO ===== -->
+  <section class="seccion-significado">
+    <h2>El Lenguaje de las Flores Amarillas</h2>
+    <p>Las flores amarillas han cautivado a la humanidad durante siglos. Su color vibrante evoca el sol, la energía y la vitalidad.</p>
+    <p>En el lenguaje de las flores, regalar amarillas significa amistad, alegría y buenos deseos. Son el mensaje perfecto para decir "gracias", "te aprecio" o simplemente "pienso en ti".</p>
+    <p class="frase-destacada">"Donde florece una flor amarilla, nace un rayo de sol en la tierra."</p>
+  </section>
+
+  <!-- ===== SECCIÓN CTA ===== -->
+  <section class="seccion-cta">
+    <h2>¿Quieres regalar flores amarillas?</h2>
+    <p>Contáctanos y envía un ramo de luz y alegría a quien más quieres. Hacemos envíos a todo el país.</p>
+    <a href="https://wa.me/1234567890" class="btn-whatsapp" target="_blank" rel="noopener">
+      💬 Pedir por WhatsApp
+    </a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="flores-footer">🌻 🌼 🌷 🏵️ 💛</div>
+    <p>Hecho con 💛 para los amantes de las flores amarillas</p>
+    <p>&copy; 2026 Jardín de Luz · <a href="#flores">Volver arriba</a></p>
+  </footer>
+
+  <!-- ===== SCRIPT DE PÉTALOS ===== -->
+  <script>
+    // Crear pétalos flotantes dinámicamente
+    const contenedorPetalos = document.getElementById('petalos');
+    const emojis = ['🌻', '🌼', '🌷', '✨', '💛', '🏵️'];
+    const cantidadPetalos = 18;
+
+    for (let i = 0; i < cantidadPetalos; i++) {
+      const petalo = document.createElement('div');
+      petalo.classList.add('petalo');
+      petalo.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      petalo.style.left = Math.random() * 100 + '%';
+      petalo.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+      petalo.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      petalo.style.animationDelay = (Math.random() * 10) + 's';
+      contenedorPetalos.appendChild(petalo);
+    }
+
+    // Animación de aparición al hacer scroll (opcional)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.tarjeta-flor').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
