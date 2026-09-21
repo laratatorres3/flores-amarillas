@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas 🌻 | Para Ti</title>
+  <style>
+    /* ===== RESET Y ESTILOS BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --amarillo-principal: #FFD700;
+      --amarillo-suave: #FFF3B0;
+      --amarillo-oscuro: #E6B800;
+      --verde-hoja: #5A7D3A;
+      --verde-oscuro: #3B5226;
+      --crema: #FFFDF5;
+      --texto-oscuro: #2E2B1F;
+      --sombra: rgba(0, 0, 0, 0.1);
+      --morado-oscuro: #2D1B4E;
+      --morado-medio: #4A2C7A;
+      --morado-claro: #6B4BA3;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--crema);
+      color: var(--texto-oscuro);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== PARTÍCULAS FLOTANTES ===== */
+    .petalos {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petalo {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: caer linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes caer {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% {
+        transform: translateY(110vh) rotate(720deg) translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    /* ===== HEADER / HERO (MORADO) ===== */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(160deg, #1A0F2E 0%, #2D1B4E 40%, #4A2C7A 100%);
+      overflow: hidden;
+      color: #FFF;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-contenido {
+      position: relative;
+      z-index: 2;
+      animation: aparecer 1.5s ease-out;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Imagen jaxf.png en el hero */
+    .imagen-hero {
+      display: block;
+      margin: 0 auto 1.5rem;
+      max-width: 220px;
+      width: 60vw;
+      height: auto;
+      animation: flotar 4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 25px rgba(255, 215, 0, 0.4));
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: var(--amarillo-principal);
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .subtitulo {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: #F0E6FF;
+      font-style: italic;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.9;
+    }
+
+    .btn-explorar {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background-color: var(--amarillo-principal);
+      color: var(--morado-oscuro);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border: 2px solid var(--amarillo-principal);
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-explorar:hover {
+      background-color: transparent;
+      color: var(--amarillo-principal);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+    }
+
+    /* ===== SECCIÓN JARDÍN (MORADO-AMARILLO) ===== */
+    .seccion-flores {
+      padding: 5rem 2rem;
+      background: linear-gradient(160deg, #F5EEFF 0%, #E8D9F5 50%, #DCC8EE 100%);
+      position: relative;
+      z-index: 2;
+    }
+
+    .seccion-flores::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 15% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .titulo-seccion {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--morado-oscuro);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      text-shadow: 1px 1px 0 rgba(255, 215, 0, 0.3);
+    }
+
+    .titulo-seccion::after {
+      content: '✿';
+      display: block;
+      color: var(--amarillo-principal);
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+
+    .grid-flores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tarjeta-flor {
+      background: linear-gradient(160deg, #FFFFFF 0%, #F3E8FF 100%);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(74, 44, 122, 0.15);
+      border-bottom: 4px solid var(--amarillo-principal);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tarjeta-flor::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.25), transparent 70%);
+      transition: height 0.4s ease;
+      z-index: 0;
+    }
+
+    .tarjeta-flor:hover::before { height: 100%; }
+
+    .tarjeta-flor:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(74, 44, 122, 0.3);
+      border-bottom-color: var(--amarillo-oscuro);
+    }
+
+    .tarjeta-flor > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Imagen dentro de las tarjetas */
+    .imagen-tarjeta {
+      max-width: 150px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      box-shadow: 0 4px 12px rgba(74, 44, 122, 0.2);
+    }
+
+    .tarjeta-flor:hover .imagen-tarjeta {
+      transform: scale(1.08);
+    }
+
+    .tarjeta-flor h3 {
+      color: var(--morado-oscuro);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .tarjeta-flor p {
+      color: var(--morado-medio);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* Tarjetas vacías (placeholder visual suave) */
+    .tarjeta-vacia {
+      border-bottom-color: #C9B3E3;
+      opacity: 0.9;
+      background: linear-gradient(160deg, #FAF5FF 0%, #EEE2F8 100%);
+    }
+
+    .tarjeta-vacia:hover {
+      border-bottom-color: var(--amarillo-principal);
+      opacity: 1;
+    }
+
+        /* ===== SECCIÓN SIGNIFICADO / CANCIÓN (MORADO) ===== */
+    .seccion-significado {
+      background: linear-gradient(160deg, #1A0F2E 0%, #2D1B4E 40%, #4A2C7A 100%);
+      padding: 5rem 2rem;
+      color: #FFF;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .seccion-significado::before {
+      content: '🎵 🎶 🎵';
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      font-size: 2.5rem;
+      opacity: 0.15;
+      letter-spacing: 3rem;
+      white-space: nowrap;
+      animation: mover 20s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+    }
+
+    .seccion-significado::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    @keyframes mover {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .seccion-significado h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--amarillo-principal);
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: 2px 2px 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .letra-cancion {
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      line-height: 2.1;
+      position: relative;
+      z-index: 1;
+      color: #F0E6FF;
+      white-space: pre-line;
+      font-style: italic;
+    }
+
+    .letra-cancion .estrofa {
+      margin-bottom: 1.8rem;
+      display: block;
+      text-shadow: 1px 1px 8px rgba(45, 27, 78, 0.5);
+    }
+
+    /* ===== SECCIÓN CTA FINAL ===== */
+    .seccion-cta {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: linear-gradient(160deg, var(--amarillo-suave) 0%, #FFE480 100%);
+    }
+
+    .seccion-cta h2 {
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      color: var(--morado-oscuro);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .seccion-cta .firma {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--morado-medio);
+      font-style: italic;
+      margin-top: 1.5rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--morado-oscuro);
+      color: var(--amarillo-suave);
+      text-align: center;
+      padding: 2.5rem 1rem;
+      font-size: 1.8rem;
+      letter-spacing: 0.5rem;
+    }
+
+    /* ===== SCROLL SUAVE ===== */
+    html { scroll-behavior: smooth; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .grid-flores { grid-template-columns: 1fr; }
+      .btn-explorar {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+      .imagen-hero { max-width: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Partículas de pétalos -->
+  <div class="petalos" id="petalos"></div>
+
+  <!-- ===== HERO MORADO ===== -->
+  <header>
+    <div class="hero-contenido">
+      <img src="jaxf.png" alt="Jaxf" class="imagen-hero" onerror="this.outerHTML='<span style=\'font-size:8rem;display:block;margin-bottom:1rem;\'>🌻</span>'">
+      
+      <h1>Flores Amarillas</h1>
+      
+      <p class="subtitulo">
+        Esta vez no podré dártelas físicamente mi amor, y aunque sea un trend de TikTok quiero que sepas que cada vez que la distancia me lo impida, aquí encontrarás una diferente como una pequeña forma de hacerte llegar todo mi amor aunque no pueda hacerlo en persona.
+      </p>
+      
+      <a href="#flores" class="btn-explorar">Mi Jardín Digital ✨</a>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN JARDÍN ===== -->
+  <section class="seccion-flores" id="flores">
+    <h2 class="titulo-seccion">Nuestro Jardín</h2>
+    <div class="grid-flores">
+
+      <!-- Tarjeta 1: con imagen jaxf.png y texto personalizado -->
+      <div class="tarjeta-flor">
+        <img src="jaxf.jpg" alt="Jaxf" class="imagen-tarjeta" onerror="this.style.display='none'">
+        <p>Un clásico para empezar entregado por un conejo QUE A ALGUIEN le mama</p>
+      </div>
+
+      <!-- Tarjeta 2: vacía, lista para imagen -->
+      <div class="tarjeta-flor tarjeta-vacia">
+        <!-- Aquí puedes agregar tu imagen: <img src="flor2.png" alt="" class="imagen-tarjeta"> -->
+      </div>
+
+      <!-- Tarjeta 3: vacía -->
+      <div class="tarjeta-flor tarjeta-vacia">
+        <!-- Aquí puedes agregar tu imagen: <img src="flor3.png" alt="" class="imagen-tarjeta"> -->
+      </div>
+
+      <!-- Tarjeta 4: vacía -->
+      <div class="tarjeta-flor tarjeta-vacia">
+        <!-- Aquí puedes agregar tu imagen: <img src="flor4.png" alt="" class="imagen-tarjeta"> -->
+      </div>
+
+      <!-- Tarjeta 5: vacía -->
+      <div class="tarjeta-flor tarjeta-vacia">
+        <!-- Aquí puedes agregar tu imagen: <img src="flor5.png" alt="" class="imagen-tarjeta"> -->
+      </div>
+
+      <!-- Tarjeta 6: vacía -->
+      <div class="tarjeta-flor tarjeta-vacia">
+        <!-- Aquí puedes agregar tu imagen: <img src="flor6.png" alt="" class="imagen-tarjeta"> -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== SECCIÓN CANCIÓN ===== -->
+  <section class="seccion-significado">
+    <h2>Y un recordatorio de Nuestra canción 🎶</h2>
+    
+    <div class="letra-cancion">
+      <span class="estrofa">
+        Como un cuchillo en la mantequilla
+        Entraste a mi vida cuando me moría
+        Como la luna por la rendija
+        Así te metiste entre mis pupilas
+      </span>
+      
+      <span class="estrofa">
+        Y así te fui queriendo a diario
+        Sin una ley, sin un horario
+        Y así me fuiste despertando
+        De cada sueño donde estabas tú
+      </span>
+      
+      <span class="estrofa">
+        Y nadie lo buscaba
+        Y nadie lo planeó así
+        En el destino estaba
+        Que fueras para mí
+      </span>
+      
+      <span class="estrofa">
+        Y nadie le apostaba
+        A que yo fuera tan feliz
+        Pero cupido se apiadó de mí
+        Se apiadó de mí
+      </span>
+      
+      <span class="estrofa">
+        Y nadie le apostaba
+        A que yo fuera tan feliz
+        Pero cupido se apiadó de mí
+        Se apiadó de mí
+      </span>
+    </div>
+  </section>
+
+  <!-- ===== SECCIÓN CTA FINAL ===== -->
+  <section class="seccion-cta">
+    <h2>Te Amo Mi Pequeño Tiburón 🦈💛</h2>
+    <p class="firma">Att: Tu 8vo Novio</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    🌻 🌼 🌷 🏵️ 💛
+  </footer>
+
+  <!-- ===== SCRIPT DE PÉTALOS ===== -->
+  <script>
+    const contenedorPetalos = document.getElementById('petalos');
+    const emojis = ['🌻', '🌼', '🌷', '✨', '💛', '🏵️'];
+    const cantidadPetalos = 18;
+
+    for (let i = 0; i < cantidadPetalos; i++) {
+      const petalo = document.createElement('div');
+      petalo.classList.add('petalo');
+      petalo.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      petalo.style.left = Math.random() * 100 + '%';
+      petalo.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+      petalo.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      petalo.style.animationDelay = (Math.random() * 10) + 's';
+      contenedorPetalos.appendChild(petalo);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.tarjeta-flor').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
